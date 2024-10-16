@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+let agenda = [];
+
+
+function cadastrarRegistros() {
+    for (let i = 0; i < 10; i++) {
+        let nome = prompt(`Digite o nome da pessoa ${i + 1}:`);
+        let endereco = prompt(`Digite o endereço da pessoa ${i + 1}:`);
+        let telefone = prompt(`Digite o telefone da pessoa ${i + 1}:`);
+
+        agenda.push({
+            nome: nome,
+            endereco: endereco,
+            telefone: telefone
+        });
+    }
+    alert("Registros cadastrados com sucesso!");
+}
+
+
+function pesquisarRegistro() {
+    let nomePesquisa = prompt("Digite o nome que deseja pesquisar:");
+    let encontrado = agenda.find(pessoa => pessoa.nome.toLowerCase() === nomePesquisa.toLowerCase());
+
+    if (encontrado) {
+        alert(`Registro encontrado:\nNome: ${encontrado.nome}\nEndereço: ${encontrado.endereco}\nTelefone: ${encontrado.telefone}`);
+    } else {
+        alert("Nome não encontrado.");
+    }
+}
+
+
+function classificarRegistros() {
+    agenda.sort((a, b) => a.nome.localeCompare(b.nome));
+    alert("Registros classificados por nome.");
+}
+
+
+function apresentarRegistros() {
+    if (agenda.length === 0) {
+        alert("Nenhum registro cadastrado.");
+        return;
+    }
+
+    let lista = "Registros:\n";
+    agenda.forEach((pessoa, index) => {
+        lista += `${index + 1}. Nome: ${pessoa.nome}, Endereço: ${pessoa.endereco}, Telefone: ${pessoa.telefone}\n`;
+    });
+
+    alert(lista);
+}
+
+
+function exibirMenu() {
+    let opcao;
+
+    do {
+        opcao = prompt("Escolha uma opção:\n1. Cadastrar 10 registros\n2. Pesquisar por nome\n3. Classificar por nome\n4. Apresentar todos os registros\n5. Sair");
+
+        switch (opcao) {
+            case '1':
+                cadastrarRegistros();
+                break;
+            case '2':
+                pesquisarRegistro();
+                break;
+            case '3':
+                classificarRegistros();
+                break;
+            case '4':
+                apresentarRegistros();
+                break;
+            case '5':
+                alert("Saindo do programa...");
+                break;
+            default:
+                alert("Opção inválida. Tente novamente.");
+        }
+    } while (opcao !== '5');
+}
+
+
+exibirMenu();
+
+    </script>
+</body>
+</html>

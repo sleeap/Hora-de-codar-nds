@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+let alunos = [];
+
+
+function calcularMedia(notas) {
+    let soma = notas.reduce((total, nota) => total + nota, 0);
+    return soma / notas.length;
+}
+
+
+function verificarAprovacao(media) {
+    return media >= 5 ? "Aprovado" : "Reprovado";
+}
+
+
+function cadastrarAlunos() {
+    for (let i = 0; i < 20; i++) {
+        let nome = prompt(`Digite o nome do aluno ${i + 1}:`);
+        let notas = [];
+
+        for (let j = 0; j < 4; j++) {
+            let nota = parseFloat(prompt(`Digite a nota ${j + 1} do aluno ${nome}:`));
+            notas.push(nota);
+        }
+
+        alunos.push({
+            nome: nome,
+            notas: notas
+        });
+    }
+
+   
+    alunos.sort((a, b) => a.nome.localeCompare(b.nome));
+    alert("Alunos cadastrados e classificados por nome.");
+}
+
+
+function pesquisarAluno() {
+    let nomePesquisa = prompt("Digite o nome do aluno que deseja pesquisar:");
+    let aluno = alunos.find(a => a.nome.toLowerCase() === nomePesquisa.toLowerCase());
+
+    if (aluno) {
+        let media = calcularMedia(aluno.notas);
+        let status = verificarAprovacao(media);
+        alert(`Nome: ${aluno.nome}\nMédia: ${media.toFixed(2)}\nStatus: ${status}`);
+    } else {
+        alert("Aluno não encontrado.");
+    }
+}
+
+
+function apresentarAlunos() {
+    if (alunos.length === 0) {
+        alert("Nenhum aluno cadastrado.");
+        return;
+    }
+
+    let lista = "Lista de alunos:\n";
+    alunos.forEach(aluno => {
+        let media = calcularMedia(aluno.notas);
+        let status = verificarAprovacao(media);
+        lista += `Nome: ${aluno.nome}, Média: ${media.toFixed(2)}, Status: ${status}\n`;
+    });
+
+    alert(lista);
+}
+
+
+function exibirMenu() {
+    let opcao;
+
+    do {
+        opcao = prompt("Escolha uma opção:\n1. Cadastrar 20 alunos\n2. Pesquisar aluno por nome\n3. Apresentar todos os alunos\n4. Sair");
+
+        switch (opcao) {
+            case '1':
+                cadastrarAlunos();
+                break;
+            case '2':
+                pesquisarAluno();
+                break;
+            case '3':
+                apresentarAlunos();
+                break;
+            case '4':
+                alert("Saindo do programa...");
+                break;
+            default:
+                alert("Opção inválida. Tente novamente.");
+        }
+    } while (opcao !== '4');
+}
+
+
+exibirMenu();
+
+    </script>
+</body>
+</html>
